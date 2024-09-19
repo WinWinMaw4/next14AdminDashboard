@@ -28,16 +28,15 @@
     padding: 10px;
   }
   
-  .user{
+  .product{
     display: flex;
     align-items: center;
     gap: 10px;
   }
   
-  .userImage{
+  .productImage{
     border-radius: 50%;
     object-fit: cover;
-    background-color: rgba(255, 235, 205, 0.29);
   }
   
   .buttons{

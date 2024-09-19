@@ -3,6 +3,7 @@ import Search from "../../ui/dashboard/search/search"
 import Link from "next/link"
 import styles from "../../ui/dashboard/users/users.module.css";
 import Image from "next/image";
+import noUser from "../../../nouser.png"
 
 const Users = () => {
   const users = [
@@ -59,7 +60,7 @@ const Users = () => {
               <td>
                 <div className={styles.user}>
                   <Image
-                    src={user.img || "/noavatar.png"}
+                    src={user.img || noUser}
                     alt=""
                     width={40}
                     height={40}
