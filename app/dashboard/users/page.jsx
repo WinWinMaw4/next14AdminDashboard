@@ -1,42 +1,33 @@
-import Pagination from "../../ui/dashboard/pagination/pagination"
-import Search from "../../ui/dashboard/search/search"
-import Link from "next/link"
-import styles from "../../ui/dashboard/users/users.module.css";
+// "use client"
+import { deleteUser } from "@/app/lib/actions";
+import { fetchUsers } from "@/app/lib/data";
+import Pagination from "@/app/ui/dashboard/pagination/pagination";
+import Search from "@/app/ui/dashboard/search/search";
+import styles from "@/app/ui/dashboard/users/users.module.css";
 import Image from "next/image";
-import noUser from "../../../nouser.png"
+import Link from "next/link";
+import noUser from "@/nouser.png"
+// import { useEffect } from "react";
 
-const Users = () => {
-  const users = [
-    {
-      id: 1,
-      username: "John Doe",
-      email: "john@example.com",
-      createdAt: new Date(),
-      isAdmin: true,
-      isActive: true,
-      img: "/path-to-image1.jpg", // Example image path
-    },
-    {
-      id: 2,
-      username: "Jane Smith",
-      email: "jane@example.com",
-      createdAt: new Date(),
-      isAdmin: false,
-      isActive: false,
-      img: "/path-to-image2.jpg", // Example image path
-    },
-    {
-      id: 3,
-      username: "Sam Wilson",
-      email: "sam@example.com",
-      createdAt: new Date(),
-      isAdmin: false,
-      isActive: true,
-      img: "/path-to-image3.jpg", // Example image path
-    },
-  ];
-    return (
-      <div className={styles.container}>
+const UsersPage = async ({ searchParams }) => {
+  const q = searchParams?.q || "";
+  const page = searchParams?.page || 1;
+  // const users = [];
+  // const count = null;
+  const users = await fetchUsers();
+  console.log(users)
+
+  // const res = await fetchUsers();
+  // console.log("res",res)
+
+  // useEffect(()=>{
+  //   if(users){
+  //     console.log("users",users)
+  //   }
+  // },[users])
+
+  return (
+    <div className={styles.container}>
       <div className={styles.top}>
         <Search placeholder="Search for a user..." />
         <Link href="/dashboard/users/add">
@@ -55,7 +46,7 @@ const Users = () => {
           </tr>
         </thead>
         <tbody>
-          {users.map((user) => (
+          {users?.data?.map((user) => (
             <tr key={user.id}>
               <td>
                 <div className={styles.user}>
@@ -92,9 +83,12 @@ const Users = () => {
           ))}
         </tbody>
       </table>
-      <Pagination count={5} />
+      {/* {
+      count && (  <Pagination count={count} />      )
+    } */}
     </div>
-    )
-  }
-  
-  export default Users
+   
+  );
+};
+
+export default UsersPage;
