@@ -3,20 +3,52 @@
 import { Product, User } from "./models";
 import connectToDB from "./utils";
 
-export async function fetchUsers() {
+export async function fetchUsers(q,page) {
+    const regex = new RegExp(q, "i");
+    
+    const ITEM_PER_PAGE = 2
+
   try{
     await connectToDB();
     // const data = await User.find();
-    const data = JSON.parse(JSON.stringify(await User.find()));
-    // throw new Error('Error !')
+    const count = await User.find({ username: { $regex: regex } }).countDocuments();
 
-    // console.log(data)
-    return {data}
+    // Fetch paginated user data
+    const data = await User.find({ username: { $regex: regex } })
+      .limit(ITEM_PER_PAGE)
+      .skip(ITEM_PER_PAGE * (page - 1))
+      .lean(); // Use `lean()` for better performance when we don't need Mongoose document methods
+
+    return {count,data}
   }catch(error){
     return {errMsg: error.message}
   }
   
 }
+
+export async function fetchProducts(q,page) {
+  const regex = new RegExp(q, "i");
+  
+  const ITEM_PER_PAGE = 2
+
+try{
+  await connectToDB();
+  // const data = await Product.find();
+  const count = await Product.find({ title: { $regex: regex } }).countDocuments();
+
+  // Fetch paginated user data
+  const data = await Product.find({ title: { $regex: regex } })
+    .limit(ITEM_PER_PAGE)
+    .skip(ITEM_PER_PAGE * (page - 1))
+    .lean(); // Use `lean()` for better performance when we don't need Mongoose document methods
+
+  return {count,data}
+}catch(error){
+  return {errMsg: error.message}
+}
+
+}
+
 
 // export const fetchUsers = async (q, page) => {
 //   const regex = new RegExp(q, "i");

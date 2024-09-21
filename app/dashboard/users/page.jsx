@@ -14,17 +14,12 @@ import { DateTime } from 'luxon';
 const UsersPage = async ({ searchParams }) => {
   const q = searchParams?.q || "";
   const page = searchParams?.page || 1;
-  // const users = [];
-  // const count = null;
-  const {data:users, errMsg} = await fetchUsers();
-  console.log("users",users)
+  const {data:users, count, errMsg} = await fetchUsers(q,page);
 
   if(errMsg) {
     return <h1>{errMsg}</h1>
   }
     
-
-
   // const res = await fetchUsers();
   // console.log("res",res)
 
@@ -91,9 +86,7 @@ const UsersPage = async ({ searchParams }) => {
           ))}
         </tbody>
       </table>
-      {/* {
-      count && (  <Pagination count={count} />      )
-    } */}
+     <Pagination count={count} />  
     </div>
    
   );
