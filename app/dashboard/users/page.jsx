@@ -7,6 +7,8 @@ import styles from "@/app/ui/dashboard/users/users.module.css";
 import Image from "next/image";
 import Link from "next/link";
 import noUser from "@/nouser.png"
+import { DateTime } from 'luxon';
+
 // import { useEffect } from "react";
 
 const UsersPage = async ({ searchParams }) => {
@@ -14,8 +16,14 @@ const UsersPage = async ({ searchParams }) => {
   const page = searchParams?.page || 1;
   // const users = [];
   // const count = null;
-  const users = await fetchUsers();
-  console.log(users)
+  const {data:users, errMsg} = await fetchUsers();
+  console.log("users",users)
+
+  if(errMsg) {
+    return <h1>{errMsg}</h1>
+  }
+    
+
 
   // const res = await fetchUsers();
   // console.log("res",res)
@@ -46,7 +54,7 @@ const UsersPage = async ({ searchParams }) => {
           </tr>
         </thead>
         <tbody>
-          {users?.data?.map((user) => (
+          {users?.map((user) => (
             <tr key={user.id}>
               <td>
                 <div className={styles.user}>
@@ -61,7 +69,7 @@ const UsersPage = async ({ searchParams }) => {
                 </div>
               </td>
               <td>{user.email}</td>
-              <td>{user.createdAt?.toString().slice(4, 16)}</td>
+              <td>  {user.createdAt && DateTime.fromISO(user.createdAt).toFormat('dd-LLL-yyyy, HH:mm')}</td>
               <td>{user.isAdmin ? "Admin" : "Client"}</td>
               <td>{user.isActive ? "active" : "passive"}</td>
               <td>

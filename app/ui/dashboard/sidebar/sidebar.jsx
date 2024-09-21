@@ -82,6 +82,15 @@ const Sidebar = async () => {
   // const { user } = await auth();
   return (
     <div className={styles.container}>
+      <div className="">
+      <Image
+          className={styles.userImage}
+          src={"/favicon.ico"}
+          alt=""
+          width="50"
+          height="50"
+        />
+      </div>
       <div className={styles.user}>
         <Image
           className={styles.userImage}

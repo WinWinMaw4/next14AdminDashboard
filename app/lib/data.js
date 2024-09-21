@@ -6,7 +6,9 @@ import connectToDB from "./utils";
 export async function fetchUsers() {
   try{
     await connectToDB();
-    const data = await User.find();
+    // const data = await User.find();
+    const data = JSON.parse(JSON.stringify(await User.find()));
+    // throw new Error('Error !')
 
     // console.log(data)
     return {data}
