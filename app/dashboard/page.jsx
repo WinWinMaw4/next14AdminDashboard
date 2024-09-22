@@ -1,3 +1,4 @@
+import { ToastContainer } from "react-toastify";
 import { cards } from "../lib/data";
 import Card from "../ui/dashboard/card/card";
 import Chart from "../ui/dashboard/chart/chart";
@@ -20,6 +21,8 @@ const Dashboard = () => {
       <div className={styles.side}>
         <Rightbar />
       </div>
+      <ToastContainer />
+
     </div>
   );
 };

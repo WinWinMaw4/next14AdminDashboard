@@ -1,31 +1,19 @@
+
 import { updateUser } from "@/app/lib/actions";
 import { fetchUser } from "@/app/lib/data";
 import styles from "@/app/ui/dashboard/users/singleUser/singleUser.module.css";
 import Image from "next/image";
-import noUser from "@/nouser.png"
-import noProduct from "@/noproduct2.png"
-
-
 
 const SingleUserPage = async ({ params }) => {
   
   const { id } = params;
-//   const user = await fetchUser(id);
-const user =   {
-    id: 1,
-    username: "John Doe",
-    email: "john@example.com",
-    createdAt: new Date(),
-    isAdmin: true,
-    isActive: true,
-    img: null, // Example image path
-  }
+  const user = await fetchUser(id);
 
   return (
     <div className={styles.container}>
       <div className={styles.infoContainer}>
         <div className={styles.imgContainer}>
-          <Image src={user.img || noProduct} alt="" fill />
+          <Image src={user.img || "/noavatar.png"} alt="" fill />
         </div>
         {user.username}
       </div>

@@ -6,7 +6,7 @@ import connectToDB from "./utils";
 export async function fetchUsers(q,page) {
     const regex = new RegExp(q, "i");
     
-    const ITEM_PER_PAGE = 2
+    const ITEM_PER_PAGE = 10
 
   try{
     await connectToDB();
@@ -29,7 +29,7 @@ export async function fetchUsers(q,page) {
 export async function fetchProducts(q,page) {
   const regex = new RegExp(q, "i");
   
-  const ITEM_PER_PAGE = 2
+  const ITEM_PER_PAGE = 10
 
 try{
   await connectToDB();
@@ -68,17 +68,17 @@ try{
 //   }
 // };
 
-// export const fetchUser = async (id) => {
-//   console.log(id);
-//   try {
-//     connectToDB();
-//     const user = await User.findById(id);
-//     return user;
-//   } catch (err) {
-//     console.log(err);
-//     throw new Error("Failed to fetch user!");
-//   }
-// };
+export const fetchUser = async (id) => {
+  console.log(id);
+  try {
+    connectToDB();
+    const user = await User.findById(id);
+    return user;
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to fetch user!");
+  }
+};
 
 // export const fetchProducts = async (q, page) => {
 //   console.log(q);
@@ -99,16 +99,16 @@ try{
 //   }
 // };
 
-// export const fetchProduct = async (id) => {
-//   try {
-//     connectToDB();
-//     const product = await Product.findById(id);
-//     return product;
-//   } catch (err) {
-//     console.log(err);
-//     throw new Error("Failed to fetch product!");
-//   }
-// };
+export const fetchProduct = async (id) => {
+  try {
+    connectToDB();
+    const product = await Product.findById(id);
+    return product;
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to fetch product!");
+  }
+};
 
 // DUMMY DATA
 

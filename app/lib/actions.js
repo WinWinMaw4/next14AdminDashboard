@@ -1,5 +1,5 @@
 
-// "use server";
+"use server";
 
 import { revalidatePath } from "next/cache";
 import { Product, User } from "./models";
@@ -144,12 +144,10 @@ export const deleteUser = async (formData) => {
 
 export const deleteProduct = async (formData) => {
   const { id } = Object.fromEntries(formData);
-
   try {
     connectToDB();
-    await Product.findByIdAndDelete(id);
+   await Product.findByIdAndDelete(id);
   } catch (err) {
-    console.log(err);
     throw new Error("Failed to delete product!");
   }
 
